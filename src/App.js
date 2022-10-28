@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+const Pawacoin     =  lazy(() => import('./pages/pawacoin/Pawacoin'));
+const Faq     =  lazy(() => import('./pages/faq/Faq'));
+const Home    =  lazy(() => import('./pages/home/Home'));
+const Contact =  lazy(() => import('./pages/contact/Contact'));
+const Blog    =  lazy(() => import('./pages/blog/Blog'));
+const Service =  lazy(() => import('./pages/services/Services'));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+  
+      <BrowserRouter>      
+        <Suspense fallback={<p>Loading</p>}>
+        
+          <Routes>
+            <Route path='/p' element={<Pawacoin/>}/>
+            <Route path='/s' element={<Service/>}/>
+            <Route path='/f' element={<Faq/>}/>
+            <Route path='/m' element={<Blog/>}/>
+            <Route path='/c' element={<Contact/>}/>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/*'element={<Home/>} />
+          </Routes>
+
+        </Suspense>
+    </BrowserRouter>
+    
   );
 }
 
